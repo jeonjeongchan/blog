@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeon.blog.mapper.UserMapper">
+	<select id="selectUserList" resultType="UserVO">
+		select * from blogUser;	 
+	</select>
+	
+	<select id="userLogin" resultType="UserVO">
+		SELECT id, password
+        FROM blogUser
+        WHERE id = #{id}
+        AND password = #{password};
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="Integer">
+        SELECT count(*)
+        FROM blogUser
+        WHERE id = #{id}
+    </select>
+ 
+	<insert id="userRegister">
+	    INSERT into blogUser(id, password, name, phone)
+	    VALUES (#{id}, #{password}, #{name}, #{phone})
+	</insert>
+	
+	<select id="userModifyGET" resultType="UserVO" parameterType="String">
+        SELECT *
+        FROM blogUser
+        WHERE id = #{id}
+	</select>
+	
+	<update id="userModifyPOST" parameterType="UserVO">
+        UPDATE blogUser
+        SET password = #{password}
+        WHERE id = #{id}
+ 	</update>
+ 	
+ 	<delete id="userDelete" parameterType="UserVO">
+        DELETE from blogUser
+        WHERE id = #{id}
+        AND password = #{password}
+    </delete>
+
+</mapper>
